@@ -1,0 +1,23 @@
+2024-12-16 23:14:51,180 - INFO - ************************************************
+2024-12-16 23:14:51,562 - INFO - Connected to the database successfully.
+2024-12-16 23:15:04,433 - INFO - Plan API Request Body: {"full_name":"Shuja80351","email":"shujatest80351@yopmail.com","phone_number":"7091264491","period":"daily","amount":100,"currency":"INR","description":"string","start_at":"25-11-2025","expire_by":"14-02-2027","notes":{},"total_count":1,"interval":7}
+2024-12-16 23:15:04,433 - INFO - Checking if customer exists in the database...
+2024-12-16 23:15:04,439 - INFO - Customer not found, creating customer on Razorpay...
+2024-12-16 23:15:04,795 - INFO - HTTP Request: POST https://api.razorpay.com/v1/customers "HTTP/1.1 200 OK"
+2024-12-16 23:15:04,796 - INFO - Razorpay customer created: cust_PXw17nNPrFJwfU
+2024-12-16 23:15:04,796 - INFO - Saving new customer to the database: <models.Customer object at 0x000002E16B2B05D0>
+2024-12-16 23:15:04,833 - INFO - Customer saved to database: cust_PXw17nNPrFJwfU
+2024-12-16 23:15:04,834 - INFO - Creating plan on Razorpay...
+2024-12-16 23:15:04,849 - INFO - Razorpay Plan Request Body: {'period': 'daily', 'interval': 7, 'item': {'name': 'Plan for Shuja80351', 'amount': 100, 'currency': 'INR', 'description': 'string'}}
+2024-12-16 23:15:06,460 - INFO - HTTP Request: POST https://api.razorpay.com/v1/plans "HTTP/1.1 200 OK"
+2024-12-16 23:15:06,460 - INFO - Plan created successfully: plan_PXw19Y1eABVZlF
+2024-12-16 23:15:06,460 - INFO - Creating subscription on Razorpay...
+2024-12-16 23:15:06,476 - INFO - Converted to UNIX 1764009000
+2024-12-16 23:15:06,476 - INFO - Converted to UNIX 1802543400
+2024-12-16 23:15:06,497 - INFO - Razorpay Subscription Request Body: {'plan_id': 'plan_PXw19Y1eABVZlF', 'total_count': 1, 'quantity': 1, 'start_at': 1764009000, 'expire_by': 1802543400, 'customer_notify': 1, 'notes': {}, 'notify_info': {'notify_phone': '7091264491', 'notify_email': 'shujatest80351@yopmail.com'}}
+2024-12-16 23:15:08,131 - INFO - HTTP Request: POST https://api.razorpay.com/v1/subscriptions "HTTP/1.1 200 OK"
+2024-12-16 23:15:08,131 - INFO - Subscription created successfully: sub_PXw1AMTezd6Gsb
+2024-12-16 23:15:08,131 - INFO - Converted to UNIX 1764009000
+2024-12-16 23:15:08,131 - INFO - Converted to UNIX 1802543400
+2024-12-16 23:15:08,131 - INFO - Subscription saved to database: sub_PXw1AMTezd6Gsb
+2024-12-16 23:15:08,131 - INFO - Subscription created successfully: subscription_id=sub_PXw1AMTezd6Gsb, customer_id=cust_PXw17nNPrFJwfU
