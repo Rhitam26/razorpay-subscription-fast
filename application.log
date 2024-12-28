@@ -1,0 +1,24 @@
+2024-12-25 23:59:22,288 - INFO - Fetching subscription details for ID: sub_PbL03ie6NtPDV9 from Subscription table
+2024-12-25 23:59:22,293 - INFO - Fetching customer data for ID: cust_PbL021dbKX9CfH from Customer table
+2024-12-25 23:59:22,427 - INFO - HTTP Request: GET https://api.razorpay.com/v1/sub_PbL03ie6NtPDV9 "HTTP/1.1 404 Not Found"
+2024-12-25 23:59:22,427 - ERROR - Error fetching subscription from Razorpay: {
+  "message":"no Route matched with those values"
+}
+2024-12-25 23:59:22,427 - ERROR - Error in update_customer_data_based_on_subscription: 404: {'message': 'no Route matched with those values'}
+2024-12-25 23:59:22,427 - ERROR - HTTPException occurred: {'message': 'no Route matched with those values'}
+2024-12-25 23:59:22,427 - ERROR - Error during database session: 404: {'message': 'no Route matched with those values'}
+2024-12-25 23:59:23,998 - INFO - ************************************************
+2024-12-25 23:59:24,126 - INFO - Connected to the database successfully.
+2024-12-26 00:01:41,247 - INFO - ************************************************
+2024-12-26 00:01:41,404 - INFO - Connected to the database successfully.
+2024-12-26 00:02:38,342 - INFO - Fetching subscription details for ID: sub_PbL03ie6NtPDV9 from Subscription table
+2024-12-26 00:02:38,342 - INFO - Fetching customer data for ID: cust_PbL021dbKX9CfH from Customer table
+2024-12-26 00:02:38,879 - INFO - HTTP Request: GET https://api.razorpay.com/v1/subscriptions/sub_PbL03ie6NtPDV9 "HTTP/1.1 200 OK"
+2024-12-26 00:02:38,879 - INFO - Customer data updated in database: {'total_recurrence': 10, 'current_recurrence': 0, 'updated_on': datetime.datetime(2024, 12, 25, 18, 32, 38, 879899)}
+2024-12-26 00:02:40,141 - INFO - ************************************************
+2024-12-26 00:02:40,287 - INFO - Connected to the database successfully.
+2024-12-26 00:03:42,845 - INFO - Fetching subscription details for ID: sub_PbUySZ512SRlEz from Subscription table
+2024-12-26 00:03:42,856 - INFO - Fetching customer data for ID: cust_PbUyRCEbbAOjpD from Customer table
+2024-12-26 00:03:42,873 - INFO - Shuja : https://api.razorpay.com/v1/subscriptions/sub_PbUySZ512SRlEz
+2024-12-26 00:03:43,473 - INFO - HTTP Request: GET https://api.razorpay.com/v1/subscriptions/sub_PbUySZ512SRlEz "HTTP/1.1 200 OK"
+2024-12-26 00:03:43,489 - INFO - Customer data updated in database: {'current_recurrence': 0, 'updated_on': datetime.datetime(2024, 12, 25, 18, 33, 43, 473345)}
