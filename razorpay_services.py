@@ -7,78 +7,15 @@ from utility import convert_to_unix_timestamp
 from datetime import datetime, timedelta
 
 # Razorpay API credentials
-RAZORPAY_API_KEY = "rzp_test_L2TrS6egloWDYm"
-RAZORPAY_API_SECRET = "cqaTzYobjoTT8PzgiItV7BGv"
+RAZORPAY_API_KEY = ""
+RAZORPAY_API_SECRET = ""
 BASE_URL = "https://api.razorpay.com/v1"
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 class RazorpayService:
-    # @staticmethod
-    # async def create_or_fetch_customer(session, customer_data: PlanInput, subscription_id=None, plan_id=None, amount_per_recurrence=None):
-    #     try:
-    #         logger.info("Checking if customer exists in the database...")
-    #         existing_customer = (
-    #             session.query(Customer)
-    #             .filter(
-    #                 (Customer.email == customer_data.email)
-    #                 | (Customer.phone_number == customer_data.phone_number)
-    #             )
-    #             .first()
-    #         )
-
-    #         if existing_customer:
-    #             logger.info(f"Existing customer found: {existing_customer.customer_id}")
-    #             if subscription_id and plan_id:
-    #                 logger.info("Updating customer with subscription details.")
-    #                 existing_customer.subscription_id = subscription_id
-    #                 existing_customer.plan_id = plan_id
-    #                 existing_customer.amount_per_recurrence = customer_data.amount
-    #                 existing_customer.total_recurrence = customer_data.total_count  # Update total_recurrence
-    #                 session.commit()  # Update the customer record
-    #                 logger.info("Customer updated with subscription details.")
-    #             return existing_customer.customer_id
-
-    #         # Customer not found, create on Razorpay
-    #         logger.info("Customer not found, creating customer on Razorpay...")
-    #         customer_payload = {
-    #             "name": customer_data.full_name,
-    #             "email": customer_data.email,
-    #             "contact": customer_data.phone_number,
-    #         }
-
-    #         async with httpx.AsyncClient(auth=(RAZORPAY_API_KEY, RAZORPAY_API_SECRET)) as client:
-    #             response = await client.post(f"{BASE_URL}/customers", json=customer_payload)
-    #             if response.status_code != 200:
-    #                 logger.error(f"Error creating customer on Razorpay: {response.text}")
-    #                 raise HTTPException(status_code=response.status_code, detail=response.json())
-    #             customer_response = response.json()
-    #             customer_id = customer_response.get("id")
-
-    #         logger.info(f"Razorpay customer created: {customer_id}")
-
-    #         # Save the new customer in DB
-    #         new_customer = Customer(
-    #             customer_id=customer_id,
-    #             full_name=customer_data.full_name,
-    #             email=customer_data.email,
-    #             phone_number=customer_data.phone_number,
-    #             subscription_id=subscription_id,
-    #             plan_id=plan_id,
-    #             amount_per_recurrence=customer_data.amount,
-    #             total_recurrence=customer_data.total_count  # Add total_count to the database
-    #         )
-    #         logger.info(f"Saving new customer to the database: {new_customer}")
-    #         session.add(new_customer)
-    #         session.commit()
-    #         logger.info(f"Customer saved to database: {customer_id}")
-
-    #         return customer_id
-    #     except Exception as e:
-    #         logger.error(f"Error in create_or_fetch_customer: {e}")
-    #         raise
-
+ 
     @staticmethod
     async def create_or_fetch_customer(session, customer_data: PlanInput, subscription_id=None, plan_id=None, amount_per_recurrence=None):
         try:
