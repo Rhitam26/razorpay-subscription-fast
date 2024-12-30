@@ -1,7 +1,7 @@
 Daily :
 {
-  "full_name": "Shuja851",
-  "email": "shujatest851@yopmail.com",
+  "full_name": "Neev026",
+  "email": "neevdeb26@yopmail.com",
   "phone_number": "7091264491",
   "period": "daily",
   "amount": 100,
