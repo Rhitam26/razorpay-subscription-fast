@@ -1,0 +1,79 @@
+2025-01-12 13:49:17,543 - INFO - ************************************************
+2025-01-12 13:49:17,669 - INFO - Connected to the database successfully.
+2025-01-12 13:49:20,401 - INFO - Received request to create subscription with plan input: {"full_name":"Shueja851","email":"shujaetest851@yopmail.com","phone_number":"7091264491","period":"daily","amount":100,"currency":"INR","description":"string","start_at":"25-11-2025","expire_by":"14-02-2027","notes":{},"total_count":1,"interval":7}
+2025-01-12 13:49:20,401 - INFO - Checking if customer exists in the database...
+2025-01-12 13:49:20,434 - INFO - Existing customer found: cust_PXw17nNPrFJwfU
+2025-01-12 13:49:20,434 - INFO - Creating plan on Razorpay...
+2025-01-12 13:49:20,450 - INFO - Razorpay Plan Request Body: {'period': 'daily', 'interval': 7, 'item': {'name': 'Plan for Shueja851', 'amount': 100, 'currency': 'INR', 'description': 'string'}}
+2025-01-12 13:49:21,166 - INFO - HTTP Request: POST https://api.razorpay.com/v1/plans "HTTP/1.1 200 OK"
+2025-01-12 13:49:21,182 - INFO - Plan created successfully: plan_PiSnn5FtvFnqR1
+2025-01-12 13:49:21,182 - INFO - Creating subscription on Razorpay...
+2025-01-12 13:49:21,182 - INFO - Converted to UNIX 1764009000
+2025-01-12 13:49:21,182 - INFO - Converted to UNIX 1802543400
+2025-01-12 13:49:21,198 - INFO - Razorpay Subscription Request Body: {'plan_id': 'plan_PiSnn5FtvFnqR1', 'total_count': 1, 'quantity': 1, 'start_at': 1764009000, 'expire_by': 1802543400, 'customer_notify': 1, 'notes': {}, 'notify_info': {'notify_phone': '7091264491', 'notify_email': 'shujaetest851@yopmail.com'}}
+2025-01-12 13:49:22,352 - INFO - HTTP Request: POST https://api.razorpay.com/v1/subscriptions "HTTP/1.1 200 OK"
+2025-01-12 13:49:22,352 - INFO - Subscription created successfully: sub_PiSnnjJTW4GByR
+2025-01-12 13:49:22,367 - INFO - Converted to UNIX 1764009000
+2025-01-12 13:49:22,367 - INFO - Converted to UNIX 1802543400
+2025-01-12 13:49:22,369 - INFO - Subscription saved to database: sub_PiSnnjJTW4GByR
+2025-01-12 13:49:22,369 - INFO - Subscription saved to database successfully: subscription_id=sub_PiSnnjJTW4GByR
+2025-01-12 13:49:22,369 - INFO - Generating due dates...
+2025-01-12 13:49:22,369 - INFO - Generated due dates: [{'subscription_id': 'sub_PiSnnjJTW4GByR', 'amount': 100, 'due_date': '25-11-2025', 'recurrence': 1, 'mail_status': 'Pending', 'duration_from': '25-11-2025', 'duration_upto': '02-12-2025'}]
+2025-01-12 13:49:22,390 - INFO - Due dates saved to database for subscription: sub_PiSnnjJTW4GByR
+2025-01-12 13:49:22,390 - INFO - Due dates saved to the database.
+2025-01-12 13:49:22,390 - INFO - Generated due date: {'subscription_id': 'sub_PiSnnjJTW4GByR', 'amount': 100, 'due_date': '25-11-2025', 'recurrence': 1, 'mail_status': 'Pending', 'duration_from': '25-11-2025', 'duration_upto': '02-12-2025'}
+2025-01-12 13:49:22,390 - INFO - Subscription creation successful: subscription_id=sub_PiSnnjJTW4GByR, customer_id=cust_PXw17nNPrFJwfU
+2025-01-12 13:52:08,602 - INFO - ************************************************
+2025-01-12 13:52:08,825 - INFO - Connected to the database successfully.
+2025-01-12 13:52:36,876 - INFO - ************************************************
+2025-01-12 13:52:37,139 - INFO - Connected to the database successfully.
+2025-01-12 13:52:40,240 - INFO - Received request to create subscription with plan input: {"full_name":"Shueja851","email":"shujaetest851@yopmail.com","phone_number":"7091264491","period":"daily","amount":100,"currency":"INR","description":"string","start_at":"25-11-2025","expire_by":"14-02-2027","notes":{},"total_count":1,"interval":7}
+2025-01-12 13:52:40,240 - INFO - Checking if customer exists in the database...
+2025-01-12 13:52:40,268 - INFO - Existing customer found: cust_PXw17nNPrFJwfU
+2025-01-12 13:52:40,268 - INFO - Creating plan on Razorpay...
+2025-01-12 13:52:40,283 - INFO - Razorpay Plan Request Body: {'period': 'daily', 'interval': 7, 'item': {'name': 'Plan for Shueja851', 'amount': 100, 'currency': 'INR', 'description': 'string'}}
+2025-01-12 13:52:40,906 - INFO - HTTP Request: POST https://api.razorpay.com/v1/plans "HTTP/1.1 200 OK"
+2025-01-12 13:52:40,908 - INFO - Plan created successfully: plan_PiSrJ8LUCbKocg
+2025-01-12 13:52:40,908 - INFO - Creating subscription on Razorpay...
+2025-01-12 13:52:40,910 - INFO - Converted to UNIX 1764009000
+2025-01-12 13:52:40,911 - INFO - Converted to UNIX 1802543400
+2025-01-12 13:52:40,923 - INFO - Razorpay Subscription Request Body: {'plan_id': 'plan_PiSrJ8LUCbKocg', 'total_count': 1, 'quantity': 1, 'start_at': 1764009000, 'expire_by': 1802543400, 'customer_notify': 1, 'notes': {}, 'notify_info': {'notify_phone': '7091264491', 'notify_email': 'shujaetest851@yopmail.com'}}
+2025-01-12 13:52:42,084 - INFO - HTTP Request: POST https://api.razorpay.com/v1/subscriptions "HTTP/1.1 200 OK"
+2025-01-12 13:52:42,084 - INFO - Subscription created successfully: sub_PiSrJiC3f6yciY
+2025-01-12 13:52:42,084 - INFO - Converted to UNIX 1764009000
+2025-01-12 13:52:42,084 - INFO - Converted to UNIX 1802543400
+2025-01-12 13:52:42,101 - INFO - Subscription saved to database: sub_PiSrJiC3f6yciY
+2025-01-12 13:52:42,101 - INFO - Subscription saved to database successfully: subscription_id=sub_PiSrJiC3f6yciY
+2025-01-12 13:52:42,101 - INFO - Generating due dates...
+2025-01-12 13:52:42,101 - INFO - Generated due dates: [{'subscription_id': 'sub_PiSrJiC3f6yciY', 'amount': 100, 'due_date': '25-11-2025', 'recurrence': 1, 'mail_status': 'Pending', 'duration_from': '25-11-2025', 'duration_upto': '02-12-2025'}]
+2025-01-12 13:52:42,117 - INFO - Due dates saved to database for subscription: sub_PiSrJiC3f6yciY
+2025-01-12 13:52:42,117 - INFO - Due dates saved to the database.
+2025-01-12 13:52:42,117 - INFO - Generated due date: {'subscription_id': 'sub_PiSrJiC3f6yciY', 'amount': 100, 'due_date': '25-11-2025', 'recurrence': 1, 'mail_status': 'Pending', 'duration_from': '25-11-2025', 'duration_upto': '02-12-2025'}
+2025-01-12 13:52:42,117 - INFO - Subscription creation successful: subscription_id=sub_PiSrJiC3f6yciY, customer_id=cust_PXw17nNPrFJwfU
+2025-01-12 13:52:56,844 - INFO - Received request to create subscription with plan input: {"full_name":"Shueja851","email":"shujaetest851@yopmail.com","phone_number":"7091264491","period":"daily","amount":100,"currency":"INR","description":"string","start_at":"25-11-2025","expire_by":"14-02-2027","notes":{},"total_count":5,"interval":7}
+2025-01-12 13:52:56,844 - INFO - Checking if customer exists in the database...
+2025-01-12 13:52:56,846 - INFO - Existing customer found: cust_PXw17nNPrFJwfU
+2025-01-12 13:52:56,846 - INFO - Creating plan on Razorpay...
+2025-01-12 13:52:56,879 - INFO - Razorpay Plan Request Body: {'period': 'daily', 'interval': 7, 'item': {'name': 'Plan for Shueja851', 'amount': 100, 'currency': 'INR', 'description': 'string'}}
+2025-01-12 13:52:57,467 - INFO - HTTP Request: POST https://api.razorpay.com/v1/plans "HTTP/1.1 200 OK"
+2025-01-12 13:52:57,469 - INFO - Plan created successfully: plan_PiSrbBmtyBvAfr
+2025-01-12 13:52:57,469 - INFO - Creating subscription on Razorpay...
+2025-01-12 13:52:57,469 - INFO - Converted to UNIX 1764009000
+2025-01-12 13:52:57,469 - INFO - Converted to UNIX 1802543400
+2025-01-12 13:52:57,488 - INFO - Razorpay Subscription Request Body: {'plan_id': 'plan_PiSrbBmtyBvAfr', 'total_count': 5, 'quantity': 1, 'start_at': 1764009000, 'expire_by': 1802543400, 'customer_notify': 1, 'notes': {}, 'notify_info': {'notify_phone': '7091264491', 'notify_email': 'shujaetest851@yopmail.com'}}
+2025-01-12 13:52:58,572 - INFO - HTTP Request: POST https://api.razorpay.com/v1/subscriptions "HTTP/1.1 200 OK"
+2025-01-12 13:52:58,576 - INFO - Subscription created successfully: sub_PiSrbmlqgxo9KV
+2025-01-12 13:52:58,576 - INFO - Converted to UNIX 1764009000
+2025-01-12 13:52:58,576 - INFO - Converted to UNIX 1802543400
+2025-01-12 13:52:58,576 - INFO - Subscription saved to database: sub_PiSrbmlqgxo9KV
+2025-01-12 13:52:58,576 - INFO - Subscription saved to database successfully: subscription_id=sub_PiSrbmlqgxo9KV
+2025-01-12 13:52:58,576 - INFO - Generating due dates...
+2025-01-12 13:52:58,576 - INFO - Generated due dates: [{'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '25-11-2025', 'recurrence': 1, 'mail_status': 'Pending', 'duration_from': '25-11-2025', 'duration_upto': '02-12-2025'}, {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '02-12-2025', 'recurrence': 2, 'mail_status': 'Pending', 'duration_from': '02-12-2025', 'duration_upto': '09-12-2025'}, {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '09-12-2025', 'recurrence': 3, 'mail_status': 'Pending', 'duration_from': '09-12-2025', 'duration_upto': '16-12-2025'}, {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '16-12-2025', 'recurrence': 4, 'mail_status': 'Pending', 'duration_from': '16-12-2025', 'duration_upto': '23-12-2025'}, {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '23-12-2025', 'recurrence': 5, 'mail_status': 'Pending', 'duration_from': '23-12-2025', 'duration_upto': '30-12-2025'}]
+2025-01-12 13:52:58,624 - INFO - Due dates saved to database for subscription: sub_PiSrbmlqgxo9KV
+2025-01-12 13:52:58,624 - INFO - Due dates saved to the database.
+2025-01-12 13:52:58,624 - INFO - Generated due date: {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '25-11-2025', 'recurrence': 1, 'mail_status': 'Pending', 'duration_from': '25-11-2025', 'duration_upto': '02-12-2025'}
+2025-01-12 13:52:58,624 - INFO - Generated due date: {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '02-12-2025', 'recurrence': 2, 'mail_status': 'Pending', 'duration_from': '02-12-2025', 'duration_upto': '09-12-2025'}
+2025-01-12 13:52:58,624 - INFO - Generated due date: {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '09-12-2025', 'recurrence': 3, 'mail_status': 'Pending', 'duration_from': '09-12-2025', 'duration_upto': '16-12-2025'}
+2025-01-12 13:52:58,624 - INFO - Generated due date: {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '16-12-2025', 'recurrence': 4, 'mail_status': 'Pending', 'duration_from': '16-12-2025', 'duration_upto': '23-12-2025'}
+2025-01-12 13:52:58,624 - INFO - Generated due date: {'subscription_id': 'sub_PiSrbmlqgxo9KV', 'amount': 100, 'due_date': '23-12-2025', 'recurrence': 5, 'mail_status': 'Pending', 'duration_from': '23-12-2025', 'duration_upto': '30-12-2025'}
+2025-01-12 13:52:58,624 - INFO - Subscription creation successful: subscription_id=sub_PiSrbmlqgxo9KV, customer_id=cust_PXw17nNPrFJwfU
