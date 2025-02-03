@@ -1,9 +1,11 @@
 from pydantic import BaseModel, validator
-from sqlalchemy import Column, String, Integer, Date, ForeignKey, DateTime, Float, Numeric
+from sqlalchemy import Column, Enum, String, Integer, Date, ForeignKey, DateTime, Float, Numeric
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime  # Import datetime module
 from typing import List, Dict
+from enum import Enum
+
 Base = declarative_base()
 
 
@@ -37,20 +39,6 @@ class Subscription(Base):
     customer = relationship("Customer", back_populates="subscriptions")
     due_dates = relationship("SubscriptionDueDate", back_populates="subscription")  # Add this line
 
-# class SubscriptionDueDate(Base):
-#     __tablename__ = 'Subscription_DueDate'
-
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     subscription_id = Column(String, ForeignKey('Subscription.subscription_id'), nullable=False)  # Corrected to String
-#     due_date = Column(DateTime, nullable=False)
-#     amount = Column(Float, nullable=False)
-#     recurrence_number = Column(Integer, nullable=False)
-#     email_status = Column(String, default="Pending")
-#     duration_from = Column(DateTime, nullable=False)
-#     duration_upto = Column(DateTime, nullable=False)
-
-#     # Relationship to Subscription
-#     subscription = relationship("Subscription", back_populates="due_dates")
 
 class SubscriptionDueDate(Base):
     __tablename__ = 'Subscription_DueDate'
@@ -95,6 +83,10 @@ class PlanInput(BaseModel):
 class FinalResponse(BaseModel):
     subscription_id: str
     customer_id: str
+    short_url: str
     message: str
     due_dates: List[Dict]
 
+class PlanType(str, Enum):
+    silver = "silver"
+    gold = "gold"

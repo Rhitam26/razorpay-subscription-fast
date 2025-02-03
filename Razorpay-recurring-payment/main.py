@@ -1,13 +1,17 @@
-
+import dotenv
 from fastapi import FastAPI, HTTPException
 import logging
 from razorpay_services import RazorpayService, SubscriptionNotificationService
-from models import PlanInput, FinalResponse
+from models import PlanInput, FinalResponse,PlanType
 from db import get_db
 from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.orm import Session
+import os
 
+dotenv.load_dotenv()
+
+plan_id=os.getenv("silver_plan")
 
 # FastAPI initialization
 app = FastAPI()
@@ -22,8 +26,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 @app.post("/create-subscription/", response_model=FinalResponse)
-async def create_subscription(db: db_dependency, plan_input: PlanInput):
+async def create_subscription(db: db_dependency, plan_input: PlanInput, plan_type: PlanType):
     try:
+        logger.info(f"Received plan type: {plan_type}")
+
+        if plan_type == "silver":
+            plan_id = os.getenv("silver_plan")
+        elif plan_type == "gold":
+            plan_id = os.getenv("gold_plan")
+
+        logger.info(f"Plan Id for {plan_type} is {plan_id}")
+
         logger.info(f"Received request to create subscription with plan input: {plan_input.model_dump_json()}")
 
         # Step 1: Validate interval for daily plans
@@ -36,14 +49,15 @@ async def create_subscription(db: db_dependency, plan_input: PlanInput):
         customer_id = await RazorpayService.create_or_fetch_customer(db, plan_input)
         logger.debug(f"Customer fetched or created: customer_id={customer_id}")
 
+#Code to create plan on Razorpay, commented out as we are using a predefined plan like silver ,gold and platinum
         # Step 3: Create plan on Razorpay
-        logger.debug("Creating plan on Razorpay...")
-        plan_id = await RazorpayService.create_plan_on_razorpay(plan_input)
-        logger.debug(f"Plan created: plan_id={plan_id}")
+        # logger.debug("Creating plan on Razorpay...")
+        # plan_id = await RazorpayService.create_plan_on_razorpay(plan_input)
+        # logger.debug(f"Plan created: plan_id={plan_id}")
 
         # Step 4: Create subscription on Razorpay
         logger.debug("Creating subscription on Razorpay...")
-        subscription_id = await RazorpayService.create_subscription_on_razorpay(plan_input, plan_id)
+        subscription_id, short_url = await RazorpayService.create_subscription_on_razorpay(plan_input, plan_id)
         logger.debug(f"Subscription created: subscription_id={subscription_id}")
 
         # Step 5: Save subscription to the database
@@ -70,6 +84,7 @@ async def create_subscription(db: db_dependency, plan_input: PlanInput):
         return FinalResponse(
             subscription_id=subscription_id,
             customer_id=customer_id,
+            short_url=short_url,
             message="Subscription created successfully!",
              due_dates=due_dates 
         )
@@ -200,7 +215,8 @@ async def check_overdue_subscriptions_status(db: db_dependency):
     except Exception as e:
         logger.error(f"Unexpected error occurred while checking overdue subscriptions: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+    
 
-
-def lambda_handler(event, context):
-    return app(event, context)
+@app.get("/")
+async def root():
+    return {"message": "Welcome to Razorpay Subscription API!"}
