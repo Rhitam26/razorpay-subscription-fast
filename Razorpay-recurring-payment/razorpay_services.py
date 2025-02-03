@@ -1,4 +1,5 @@
 
+import dotenv
 import httpx
 from fastapi import HTTPException
 import logging
@@ -9,13 +10,22 @@ from datetime import datetime, timedelta
 from sqlalchemy import create_engine, cast, Date
 from sqlalchemy.sql.sqltypes import Date
 from sqlalchemy import cast as sqlalchemy_cast
+import os
+
+
+dotenv.load_dotenv()
+
+RAZORPAY_API_KEY=os.getenv("API_KEY")
+RAZORPAY_API_SECRET = os.getenv("API_SECRET")
 
 
 
 
 # Razorpay API credentials
-RAZORPAY_API_KEY = "rzp_test_L2TrS6egloWDYm"
-RAZORPAY_API_SECRET = "cqaTzYobjoTT8PzgiItV7BGv"
+# RAZORPAY_API_KEY = "rzp_test_L2TrS6egloWDYm"
+# RAZORPAY_API_SECRET = "cqaTzYobjoTT8PzgiItV7BGv"
+# RAZORPAY_API_KEY = "rzp_test_hTNeHzM03SutGO"
+# RAZORPAY_API_SECRET = "ljRGUsfzvsEAT3Rdq4Z7m7my"
 BASE_URL = "https://api.razorpay.com/v1"
 
 # Configure logging
@@ -88,7 +98,6 @@ class RazorpayService:
             session.rollback()
             raise
 
-
     @staticmethod
     async def create_plan_on_razorpay(plan_input: PlanInput):
         try:
@@ -148,7 +157,6 @@ class RazorpayService:
             logger.error(f"Unexpected error in create_plan_on_razorpay: {e}")
             raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
-
     @staticmethod
     async def create_subscription_on_razorpay(plan_input: PlanInput, plan_id: str):
         try:
@@ -174,10 +182,12 @@ class RazorpayService:
                     logger.error(f"Error creating subscription on Razorpay: {response.text}")
                     raise HTTPException(status_code=response.status_code, detail=response.json())
                 subscription_response = response.json()
+                logger.info(f"*** Subscription Response *** :- {subscription_response}")
                 subscription_id = subscription_response.get("id")
+                short_url=subscription_response.get("short_url")
 
             logger.info(f"Subscription created successfully: {subscription_id}")
-            return subscription_id
+            return subscription_id , short_url
         except Exception as e:
             logger.error(f"Error in create_subscription_on_razorpay: {e}")
             raise
@@ -191,7 +201,7 @@ class RazorpayService:
                 plan_id=plan_id,
                 start_date=datetime.fromtimestamp(convert_to_unix_timestamp(plan_input.start_at)).date(),
                 end_date=datetime.fromtimestamp(convert_to_unix_timestamp(plan_input.expire_by)).date(),
-                status="Active",
+                status="Pending",
                 created_at=datetime.now(),
                 last_updated=datetime.now()
             )
@@ -265,7 +275,6 @@ class RazorpayService:
 
         return due_dates
 
-
     @staticmethod
     async def save_due_dates_to_db(session, subscription_id: str, due_dates: list):
         """
@@ -295,7 +304,6 @@ class RazorpayService:
             logger.error(f"Error saving due dates to DB for subscription {subscription_id}: {e}")
             session.rollback()  # Rollback in case of error
             raise
-
 
     @staticmethod
     async def fetch_customer_last_updated_by_email(session, email: str):
@@ -333,7 +341,6 @@ class RazorpayService:
             logger.error(f"Error in fetch_customer_last_updated_by_email: {e}")
             raise
 
-
     @staticmethod
     async def update_customer_data_based_on_subscription(session, subscription_id: str):
         try:
@@ -370,7 +377,7 @@ class RazorpayService:
 
             # Call Razorpay API to fetch subscription details
             async with httpx.AsyncClient(auth=(RAZORPAY_API_KEY, RAZORPAY_API_SECRET)) as client:
-                logger.info(f"neev : {BASE_URL}/subscriptions/{subscription_id}")
+                logger.info(f"Shuja : {BASE_URL}/subscriptions/{subscription_id}")
                 response = await client.get(f"{BASE_URL}/subscriptions/{subscription_id}")
                 if response.status_code != 200:
                     logger.error(f"Error fetching subscription from Razorpay: {response.text}")
@@ -403,7 +410,6 @@ class RazorpayService:
         except Exception as e:
             logger.error(f"Error in update_customer_data_based_on_subscription: {e}")
             raise
-
 
     @staticmethod
     async def fetch_latest_invoice(subscription_id: str):
@@ -456,6 +462,7 @@ class RazorpayService:
             logger.error(f"Error in fetching latest invoice: {e}")
             raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
         
+
 
 class SubscriptionNotificationService:
 
@@ -571,6 +578,8 @@ class SubscriptionNotificationService:
                     if due_date.due_date < today:
                         reminder_list.append({
                             "subscription_id": due_date.subscription_id,
+                            "customer_name": customer.full_name,
+                            "customer_email": customer.email,
                             "due_date": due_date.due_date,
                             "amount per reccurence": due_date.amount,
                             "duration_from": due_date.duration_from,
@@ -581,6 +590,8 @@ class SubscriptionNotificationService:
                     else:
                         reminder_list.append({
                             "subscription_id": due_date.subscription_id,
+                            "customer_name": customer.full_name,
+                            "customer_email": customer.email,
                             "due_date": due_date.due_date,
                             "amount per reccurence": due_date.amount,
                             "duration_from": due_date.duration_from,
@@ -591,6 +602,10 @@ class SubscriptionNotificationService:
                 else:
                     logger.info(f"Invoice exists for subscription_id: {due_date.subscription_id}, marking as Paid.")
                     reminder_list.append({
+                        "customer_name": customer.full_name,
+                        "customer_email": customer.email,
+                        "duration_from": due_date.duration_from,
+                        "duration_upto": due_date.duration_upto,
                         "subscription_id": due_date.subscription_id,
                         "status": "Paid",
                         "invoice_details": invoice_details
